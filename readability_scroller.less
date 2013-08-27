@@ -1,0 +1,206 @@
+@BLUE : #25C2E5;
+@GREEN : #18E818; 
+@RED : #E81818;
+@FONTSIZE : 100%;
+@DARKGREY : #333333;
+@LIGHTGREY :#E3E3E3;
+@BUTTONHEIGHT : 16px;
+@ICONS : 'http://diknows.com/files/iconic/raster/white/';
+@HICONS : 'http://diknows.com/files/iconic/raster/green/';
+@LOCK : 'lock_fill_9x12.png';
+@UNLOCK : 'unlock_fill_9x12.png';
+@PIN : 'map_pin_fill_8x12.png';
+@PAUSE : 'pause_9x12.png' ;
+@PLAY : 'play_9x12.png' ;
+.wide {
+  padding:0;
+  margin:0;
+  text-align:justify; 
+  width:100% !important;
+}
+/* Black */
+@gFrom : @DARKGREY;
+@gColor : rgb(64,64,64,1);
+@gTo   : rgba(127,127,127,1);
+
+.gradient(@gFrom:@gFrom,@gTo:@gTo,@gColor:@gColor) {
+  background: -moz-linear-gradient(top, @gFrom  0%, @gTo 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@gFrom), color-stop(100%,@gTo));
+  background: -webkit-linear-gradient(top,  @gFrom 0%,@gTo 100%);
+  background: -o-linear-gradient(top,  @gFrom 0%,@gTo 100%);
+  background: -ms-linear-gradient(top,  @gFrom 0%,@gTo 100%);
+  background: linear-gradient(to bottom,  @gFrom 0%,@gTo 100%);
+  &:hover{
+    background: lighten(@gFrom,20%);
+  }
+}
+.positioner  {
+  position                : fixed;
+  top                     : 20%;
+}
+.container {
+  background: @DARKGREY;
+  .positioner;
+  padding                 : 2px;
+  border-radius           : 15px;
+  border                  : 3px outset #282828;
+  overflow                : auto;
+  z-index                 : 1000;
+}
+.bar {
+  .container;
+  background              : @DARKGREY;
+  text-align              : center;
+  right                   : 5px;
+  width                   : 90px;
+}
+
+.baseButton {
+  cursor                  : pointer;
+  display                 : block;
+  width                   : 100%;
+  height                  : @BUTTONHEIGHT;
+  border-top              : 1px solid lighten(@DARKGREY,20%);
+  background-color        : @DARKGREY;
+  &:hover{
+    background-color      : lighten(@DARKGREY,20%);
+  }
+}
+
+/**
+ * Command Button
+ */
+.button {
+  .baseButton;
+  border-bottom           : 1px solid @DARKGREY;
+  color                   : @LIGHTGREY !important;
+  &.first{
+    border-radius         : 15px 15px 0 0 ;
+  }
+  &.last{
+    border-radius         : 0 0 15px 15px ;
+  }
+  &.marked{
+    background            : transparent url( '@{ICONS}@{PIN}' ) no-repeat center right; 
+  }
+  #text,#lock,#pause{
+    display: inline-block;
+    float:left;
+    visibility: hidden;
+    min-width: 12px;
+    padding-right:2px;
+    height: 100%;
+    vertical-align: middle;
+  }
+  #lock{
+    background            : transparent url( '@{ICONS}@{LOCK}') no-repeat center left; 
+    &:hover{
+      background-image    : url( '@{HICONS}@{LOCK}' );
+    }
+    &.locked{
+      background-image    : url( '@{ICONS}@{UNLOCK}' );
+      &:hover{
+        background-image    : url( '@{HICONS}@{UNLOCK}' );
+      }
+    }
+  }
+  #pause{
+    background            : transparent url( '@{ICONS}@{PAUSE}' ) no-repeat center left; 
+    &:hover{
+      background-image    : url( '@{HICONS}@{PAUSE}' );
+    }
+    &.paused{
+      background-image    : url( '@{ICONS}@{PLAY}' );
+      &:hover{
+        background-image    : url( '@{HICONS}@{PLAY}' );
+      }
+    }
+  }
+}
+.cButton{
+  .button;
+  background-color       : @DARKGREY;
+  &.last{
+    .gradient;
+  }
+}
+
+.box  {
+  .container;
+  right                   : 20%;
+  height                  : 60%;
+  width                   : 60%;
+  color                   : @DARKGREY;
+}
+
+.closer{
+  .positioner;
+  right                   : 20%;
+  z-index                 : 1002;
+}
+
+.bookmarks {
+  .cButton;
+  display                 : inline-block;
+}
+.bookmarkContainer{
+  .bookmark {
+    .bookmarks;
+    text-align              : right;
+    width                   : 80%;
+  }
+
+  .bookmarkClose  {
+    .bookmarks;
+    width                   : 20%;
+    color                   : @RED !important;
+  }
+  &.last{
+    .gradient;
+    border-radius           : 0 0 10px 10px;
+    .bookmark {
+      border-radius         : 0 0 0 10px;
+      .gradient;
+    }
+    .bookmarkClose  {
+      border-radius         : 0 0 10px 0;
+      .gradient;
+    }
+  }
+}
+
+.rTButton {
+  .baseButton;
+  width                   : 20%;
+  display                 : inline-block;
+  color                   : @GREEN !important;
+}
+
+.lTButton {
+  .rTButton;
+  color                   : @RED !important;
+}
+
+.mTButton {
+  .lTButton;
+  width                   : 60%;
+  color                   : @BLUE !important;
+  border-right            : 0;
+  border-left             : 0;
+}
+
+.stop {
+  color                   : white;
+  background              : black;
+}
+
+.brief {
+  padding                 : 15px;
+  line-height             : 1.2em;
+  text-align              : justify;
+  color                   : @LIGHTGREY;
+  font-size               : @FONTSIZE;
+}
+.selected{
+  background-color        : darken(@RED,20%) !important;
+}
